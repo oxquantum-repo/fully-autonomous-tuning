@@ -1,7 +1,19 @@
 Code related to the publication [Fully autonomous tuning of a spin qubit](https://arxiv.org/abs/2402.03931)
 
 
+[todo: installation]
+[make installation easy, write instructions, test, report normal install time]
+
+
+
+
+
 # Requirements
+
+[todo: system requirements]
+[talk about software dependencies, operating system, report versions the software was tested on]
+
+
 
 ## Data
 
@@ -25,6 +37,8 @@ First, download the data (see link above), then see the notebooks in ```data_vis
 
 
 # Demonstrations
+[todo: demonstration]
+[report expected run times]
 
 We demonstrate how to use the data analysis methods in ```demonstrations```, see the Jupyter notebooks. For a simple demonstration of how the 
 framework can be used, see ```demonstrations/simple_dummy_pipeline.py```. It needs to be executed from within 
@@ -33,5 +47,10 @@ name of a dummy experiment. If successfully executed, there will be a markdown f
 ```documentation``` which showcases the execution of a mock experiment.
 
 # Code used for full tuning
+[todo: instructions for use]
+[more details on how to run the software]
+
 
 The full pipeline can be executed by running 'pipelines/from_scratch_to_rabi.py'.
+
+
