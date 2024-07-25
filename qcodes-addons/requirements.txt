@@ -1,0 +1,4 @@
+qcodes~=0.38.1
+pyvisa-py~=0.7.0
+pyserial~=3.5
+nidaqmx~=0.7.0
