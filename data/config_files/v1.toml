@@ -1,0 +1,49 @@
+'bias_voltage' = 0.005
+'magnet_ramp_rate' = 0.0016 #T/s
+
+'low_magnetic_field'= '0.0'
+'high_magnetic_field'= '0.1'
+
+'left_barrier_voltage' = 1.350
+'right_barrier_voltage' = 1.020
+'middle_barrier_voltage' = 0.660
+
+'left_plunger_voltage' = 0.110
+'right_plunger_voltage' = 0.0
+
+'window_right_plunger' = 0.300
+'window_left_plunger' = 0.300
+
+'resolution' = 0.002
+'lockin_tc' = 0.5
+'wait_time_slow_axis' = 0.5
+'wait_time_fast_axis' = 0.0777
+
+'invert_current' = 'True'
+'psb_threshold' = 0.5
+
+['psb_via_segmentation']
+    'res' = 2
+    'min_area' = 205
+    'thr_method' = 'noisy_binary'
+    'denoising' = 'True'
+    'allow_MET' = 'True'
+    'direction' = 'down'
+    'int_tol' = 0.1
+
+['single_triangle_scan']
+    'magnetic_field' = 0.1
+    'resolution' = 0.001
+
+['detuning_v_magnet']
+    'resolution_magnet' = 0.001
+    'resolution_detuning' = 0.0005
+    'max_B' = 0.5
+    'min_B' = 0.0
+    'lockin_tc' = 0.5
+
+['detuning_line_detection']
+    'res' = 2
+    'min_area' = 3
+    'thr_method' = 'noisy_binary'
+    'inv'='True'

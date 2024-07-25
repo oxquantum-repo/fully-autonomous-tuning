@@ -1,0 +1,393 @@
+experiment_name = "20231128_full_pipeline_gate_set_C"
+gate_set_name = 'C'
+[RootStage]
+
+[HypersurfaceBuilder]
+    number_of_rays = 32
+    threshold_as_multiple_of_noise_low = 50
+    threshold_as_multiple_of_noise_high = 100
+    lower_bounds = [0,0,0] # barrier bounds
+    upper_bounds = [1.8,1.8,3.0] # barrier bounds
+    plunger_location = [0.0, 0.0]
+    bias_low = 0.0007
+    bias_high=0.005
+    d_r=0.003#5
+    len_after_pinchoff=0.250
+    max_dist=3
+
+    n_noise_floor = 100
+    plot_every = 5
+    force_measurement=false
+[DoubleDotFinder]
+    bias_voltage = 0.005
+    magnetic_field = 0.1
+
+    plunger_location = [0.0,0.0]#[0.15, 0.4]
+    origin = [0,0,0]
+    normalise_pinchoffs = false
+    step_size = 0.1 # in V
+    max_distance_between_locations = 0.1
+
+    path_to_nn = "../signal_processing/high_res_double_dot_clf/20220610_high_res_dqd_classifier/saved_networks/all_data.pth"
+    force_measurement = false
+    force_analysis = false
+    n_iter = 10
+
+    [DoubleDotFinder.1d_scan]
+        window_right_plunger = 0.1
+        window_left_plunger = 0.1
+
+        n_px = 128
+        wait_time = 0.051
+
+    [DoubleDotFinder.2d_scan]
+        window_right_plunger = 0.2
+        window_left_plunger = 0.2
+
+        n_px_rp = 48
+        n_px_lp = 48
+
+        wait_time_slow_axis = 0.5
+        wait_time_fast_axis = 0.051
+
+[BaseSeparationOptimisation]
+    bias_voltage = 0.005
+    number_of_candidates = 10
+    force_measurement=false
+    force_analysis = false
+    bias_directions = ['positive_bias', 'negative_bias']
+    [BaseSeparationOptimisation.optim_settings]
+        rp_start = -0.3
+        rp_end = 0.0
+        lp_start = -0.15
+        lp_end = 0.15
+        n_points_plungers = 100
+        seeding = 15
+        test_mode=false
+        do_postmortem_scans=true
+        snake_mode = true
+        n_required_results = 30
+        number_of_full_scans_threshold = 10
+        break_on_cotunnelling = true
+
+
+[PSBViaWideScan]
+    max_number_candidates = 5
+
+    low_magnetic_field= 0.0
+    high_magnetic_field= 0.1
+
+    psb_threshold = 0.5
+    psb_model = 'lenet'
+    folder_path_to_nn = "../signal_processing/psb_classifier/saved_networks/20230830_lenet_all_real_data_nanowire_low_res/"
+    network_names = 'all_real_data'
+    offset_px = 10
+    padding = 0.03
+    resolution =0.002
+    force_analysis= false
+    force_measurement = false
+    [PSBViaWideScan.separation_scoring]
+        segmentation_upscaling_res =2
+        relative_min_area = 0.01
+        denoising = true
+        allow_MET = false
+        thr_method = 'triangle'
+   [PSBViaWideScan.invert_current]
+        positive_bias = true
+        negative_bias = false
+
+
+[ReCenteringStage]
+    magnetic_field= 0.1
+
+    resolution = 0.002#0.001
+    wait_time_slow_axis = 0.5
+    wait_time_fast_axis = 0.051
+
+    segmentation_upscaling_res =2
+    relative_min_area = 0.01
+    denoising = true
+    allow_MET = false
+    thr_method = 'triangle'
+
+    force_analysis= false
+    force_measurement = false
+
+    [ReCenteringStage.invert_current]
+        positive_bias = true
+        negative_bias = false
+
+[HighResPSBClassifier]
+    low_magnetic_field= 0.0
+    high_magnetic_field= 0.1
+
+    resolution = 0.00075#0.001
+    wait_time_slow_axis = 0.5
+    wait_time_fast_axis = 0.051
+
+    padding = 0.005 # in V in total per dimension, so 0.01 means 0.005 on each side
+
+    # if using neural network
+    psb_threshold = 0.5
+    psb_model = 'resnet'
+
+    # if using segmentation (current standard)
+    slope_tol = 0.4
+    int_tol = 0.05
+    seg_tol = 0.05
+    median = false
+    segmentation_upscaling_res =2
+    relative_min_area = 0.01
+    denoising = true
+    allow_MET = false
+    thr_method = 'triangle'
+    force_analysis= false
+    force_measurement = false
+
+    [HighResPSBClassifier.invert_current]
+        positive_bias = true
+        negative_bias = false
+
+[DanonGapCheck]
+
+    magnetic_field_min = -0.1
+    magnetic_field_max = 0.1
+    resolution_magnet = 0.003
+
+    resolution_detuning = 0.0001
+
+    detuning_base_offset = 0.002
+
+    extra_wait_time_slow_axis = 0.5
+    wait_time_fast_axis = 0.077
+
+    segmentation_upscaling_res =2
+
+    min_area = 3
+    thr_method = 'triangle'
+    allow_MET = false
+    padding_factor = 1
+    minimum_det_line_length_ratio = 0.33
+    peak_offset_tolerance = 0.02
+
+    force_measurement = false
+    force_analysis = false
+    [DanonGapCheck.detector]
+        method = 'MF' # [OU, MF]
+        sigma = 1
+
+        # OU settings
+        prominence = 0.5
+        min_kernel_size=3
+        max_kernel_size=21
+        prior_n=4
+        detection_threshold=0.85
+
+        # MF settings
+        field_gap_size = 0.002 # 0.02
+        relative_depth = 1.0 # 1.3
+
+    [DanonGapCheck.invert_current]
+        positive_bias = true
+        negative_bias = false
+
+[ReadoutViaBvsDetuning]
+    freq_vs = 2.79e9
+
+    force_analysis= false
+    force_measurement = false
+
+    resolution_detuning = 0.0002
+
+    extra_wait_time_slow_axis = 0.5
+    wait_time_fast_axis = 0.6#1.1#2.5
+
+    lockin_tc = 0.5#1#2
+
+    [ReadoutViaBvsDetuning.detector]
+        method = "MF" # [OU, MF]
+        sigma = 1
+
+        # OU settings
+        max_kernel_size=11
+        prominence=0.5
+        detection_threshold=0.85
+
+        # MF settings
+        circularity_thresh = 3
+        relative_length = 0.3
+        adaptive_window = 7
+
+
+
+[RabiAndEDSR]
+    freq_vs = 2.79e9
+    force_analysis= false
+    force_measurement = false
+
+    [RabiAndEDSR.Rabi]
+        magnetic_field_window_multiplier = 2 # window is determined by EDSRCheck and multiplied with this number
+        #resolution_magnet = 0.002
+        n_px_magnet = 40
+
+        resolution_burst_time = 1e-9
+
+        min_burst_time = 0
+        max_burst_time = 45e-9
+        dead_burst_time = 10e-9
+
+
+
+        extra_wait_time_slow_axis = 0.5
+        wait_time_fast_axis = 2.5
+
+        lockin_tc = 2
+
+    [RabiAndEDSR.EDSR]
+        min_magnetic_field = 0
+        max_magnetic_field = 0.5
+        resolution_magnet = 0.01
+
+        min_freq_vs = 1.5e9
+        max_freq_vs = 3.5e9
+
+        resolution_freq = 0.5e8
+
+        extra_wait_time_slow_axis = 2
+        wait_time_fast_axis = 1.1#2.5
+
+        lockin_tc = 1#2
+
+[EDSRline]
+    force_analysis= true
+    force_measurement = false
+
+    min_magnetic_field = 0
+    max_magnetic_field = 0.5
+    resolution_magnet = 0.005
+
+    min_freq_vs = 2e9
+    max_freq_vs = 3e9
+
+    resolution_freq = 0.5e8
+
+    extra_wait_time_slow_axis = 1
+    wait_time_fast_axis = 1.1#2.5
+
+    lockin_tc = 1#2
+
+    sigma = 1
+
+    circularity_thresh = 3
+    relative_length = 0.3
+    adaptive_window = 7
+
+[Rabi]
+    force_analysis= false
+    force_measurement = false
+
+    magnetic_field_window_multiplier = 2 # window is determined by EDSRCheck and multiplied with this number
+    resolution_magnet = 0.00075
+    n_px_magnet = 40
+
+    resolution_burst_time = 1e-9
+
+    min_burst_time = 0
+    max_burst_time = 45e-9
+    dead_burst_time = 10e-9
+
+
+
+    extra_wait_time_slow_axis = 6
+    wait_time_fast_axis = 2.5
+
+    lockin_tc = 2
+
+[RabiOscillations]
+    force_analysis= false
+    force_measurement = false
+
+    resolution_burst_time = 0.5e-9
+
+    min_burst_time = 0
+    max_burst_time = 60e-9
+    dead_burst_time = 10e-9
+
+    lockin_tc = 2
+
+    n_repetitions = 5
+
+
+[EDSRCheck]
+    freq_vs = 2.79e9
+
+    magnetic_field_window = 0.1
+    resolution_magnet = 0.001
+
+    wait_time = 2.5
+
+    lockin_tc = 2
+
+
+    prominence = 0.9
+    sigma = 1
+    force_analysis= false
+    force_measurement = false
+
+    peak_offset_tolerance = 0.025
+[EDSRCheck.switch_check_scan]
+    resolution = 0.0015
+    wait_time_slow_axis = 0.5
+    wait_time_fast_axis = 0.051
+[ReadoutOptim]
+    magnetic_field = 0.1
+    resolution = 0.00075
+    padding = 0.005
+    wait_time_slow_axis = 0.5
+    wait_time_fast_axis = 0.051
+    force_analysis = false
+    force_measurement = false
+    burst_time = 4e-9
+    in_depth_search = false
+    lockin_tc = 1
+
+    segmentation_upscaling_res = 2
+    relative_min_area = 0.001
+    thr_method = 'triangle'
+
+    seeding = 15
+    number_of_candidates = 3
+
+
+
+[ReadoutOptim.score_config]
+    name = "entropy"
+    kwargs.rescale = true
+# can use prominence instead
+[ReadoutOptim.optim_pulse_params]
+    freq_vs.minimum = 2.6e9
+    freq_vs.maximum = 2.9e9
+    burst_time_ns.minimum = 2
+    burst_time_ns.maximum = 16
+
+
+[ReadoutOptim.invert_current]
+    positive_bias = true
+    negative_bias = false
+
+[ReadoutOptim.optimization_kwargs]
+    iterations = 30
+
+[ReadoutOptim.magnetic_field_scan_config]
+    measure = ["X", "Y"]
+    scan_kwargs.measurement_name = "readout_optim"
+
+    [ReadoutOptim.magnetic_field_scan_config.domain]
+        field_setpoint.start = 0.04
+        field_setpoint.stop = 0.4
+
+        field_setpoint.num_points = 300
+        field_setpoint.delay = 1
+
+
+# 100 mT per minute, 1.66mT/s
