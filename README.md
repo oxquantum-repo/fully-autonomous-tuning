@@ -4,15 +4,25 @@ Code related to the publication [Fully autonomous tuning of a spin qubit](https:
 [todo: installation]
 [make installation easy, write instructions, test, report normal install time]
 
+To install this repo, we recommend using a virtual environmment manager, like anaconda, and create a dedicated environment.
+Once you have the environment, and the installer ```pip``` available, you can simply run the command 
 
-test
+```pip install .``` 
+
+to install all necessary dependencies. The installation process should take around 10 mins.
+
+
 
 
 # Requirements
 
-[todo: system requirements]
-[talk about software dependencies, operating system, report versions the software was tested on]
+## System requirements
 
+This repo should work on all computers that can run a python environment. 
+
+To run the full experiment, you will, of course, need access to a spin qubit experiment using transport measurements.
+
+We tested this on a MacBook Air M2 with macOS Sonoma 14.5.
 
 
 ## Data
