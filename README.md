@@ -5,7 +5,7 @@ Code related to the publication [Fully autonomous tuning of a spin qubit](https:
 [make installation easy, write instructions, test, report normal install time]
 
 
-
+test
 
 
 # Requirements
