@@ -48,9 +48,8 @@ from helper_functions.file_system_tools import create_folder_structure  # , Data
 # %%
 # set up experiment name and data saving etc.
 
-# config_path = "../data/config_files/v4_scratch_to_rabi.toml"
-# config_path = "../data/config_files/v8_scratch_to_rabi_gate_set_B.toml"
-config_path = "../data/config_files/v9_scratch_to_rabi_gate_set_C.toml"
+config_path = "../data/config_files/v4_scratch_to_rabi.toml"
+
 
 configs = toml.load(config_path)
 experiment_name = configs['experiment_name']
