@@ -1,1 +1,0 @@
-from .moore_neigbor_tracer import evaluate_contours

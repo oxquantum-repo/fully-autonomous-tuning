@@ -1,9 +1,5 @@
 Code related to the publication [Fully autonomous tuning of a spin qubit](https://arxiv.org/abs/2402.03931)
 
-
-[todo: installation]
-[make installation easy, write instructions, test, report normal install time]
-
 To install this repo, we recommend using a virtual environmment manager, like anaconda, and create a dedicated environment.
 Once you have the environment, and the installer ```pip``` available, you can simply run the command 
 
@@ -11,6 +7,12 @@ Once you have the environment, and the installer ```pip``` available, you can si
 
 to install all necessary dependencies. The installation process should take around 10 mins.
 
+The code here is making heavy use of subroutines that were developed in a separate package. We include this code, but it needs to be installed separately.
+You need to navigate to the subfolder ```signal_processing/bias_triangle_processing```. Here, execute 
+
+```pip install .```
+
+again. This will make the module ```bias_triangle_detection``` available in the namespace.
 
 
 
@@ -27,8 +29,10 @@ We tested this on a MacBook Air M2 with macOS Sonoma 14.5.
 
 ## Data
 
-Please download data from [here](https://drive.google.com/drive/folders/1_81KzZ8lP8I3Z0P9k4NsKs4xBhn9KErA?usp=share_link) (REPLACE WITH PUBLIC DATA REPO, E.G., ZENODO)
+Please download data from [here](https://drive.google.com/drive/folders/1_81KzZ8lP8I3Z0P9k4NsKs4xBhn9KErA?usp=share_link).
 The data contains the trained models and data from the experiments to recreate the plots from the paper.
+Place the data in the folder ```data``` so that the demo modules can access it.
+
 
 ## Long path names on Windows
 
