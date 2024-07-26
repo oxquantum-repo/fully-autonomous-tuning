@@ -1,0 +1,52 @@
+Metadata-Version: 2.1
+Name: bias_triangle_detection
+Version: 0.1.2
+Summary: bias_triangle_detection helps you detect bias triangles.
+Author: bias_triangle_detection
+License: Apache Software License (Apache 2.0)
+Keywords: PSB,feature extraction
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: <3.12,>=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: numpy~=1.23.3
+Requires-Dist: matplotlib~=3.5.2
+Requires-Dist: opencv-python-headless~=4.7
+Requires-Dist: scikit-image~=0.19.2
+Requires-Dist: scipy~=1.9.3
+Requires-Dist: jupytext~=1.14.6
+Requires-Dist: tqdm~=4.65.0
+Requires-Dist: xarray~=2023.5.0
+Requires-Dist: black~=23.3.0
+Requires-Dist: netcdf4~=1.6.4
+Requires-Dist: mlflow~=2.4.1
+Requires-Dist: mindfoundry_optaas_client~=1.4.1
+Requires-Dist: gpytorch~=1.11
+Requires-Dist: pytest~=7.4.0
+Requires-Dist: qcodes
+Requires-Dist: mpl_image_labeller~=1.1.2
+Requires-Dist: fastai~=2.7.12
+
+# Bias Triangle Detection
+
+The notebook Bias_Triangle_Detection_example exemplifies the use of the bias triangle detection framework.
+The approach broadly consists of 
+
+1. Initial image preprocessing (as needed) & binary thresholding *
+2. Initial contour detection
+3. Contour approximation by minimum-edge polygon & maximum area overlap (using the RDP)
+4. Polygon/Triangle feature extraction
+    4.1 Extraction of the triangle base - requires user input of rough triangle direction ('top', 'bottom', 'right', 'left') & angles
+    4.2 Extraction of the rough area between the base & first excited state 
+    
+Step 4 aims to facilitate the identification of Pauli-Spin-Blockade (PSB) & the readout spot (for qubit identification).     
+    
+The module ``im_utils.py`` contains basic image processing functions, the module ``btriangle_detection.py`` contains the detection/geometric approximation functionality and ``btriangle_properties.py`` contains the feature extraction functionality.
+
+As per the notebook, the detection framework can be applied to either a single zoomed-in triangle or a wide shot image featuring many triangles - in the case of the latter, some default params may need to be adapted.
+
+*If the shape at hand has a distinct gap between the base line & rest of the triangle, apply the thresholding method "noisy binary" (or "noisy_triangle"), optionally with Gaussian filtering. For data with extreme cases (such as from a FinFet device), further consider the sub_module with "allow_MET = True" in ``btriangle_detection.py``.
