@@ -1,0 +1,1 @@
+from .wideshot_sampler import WideshotSampler
