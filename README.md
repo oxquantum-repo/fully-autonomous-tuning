@@ -74,13 +74,50 @@ First, download the data (see link above), then see the notebooks in ```data_vis
 
 
 # Demonstrations
-[todo: demonstration]
-[report expected run times]
-[write about the different demo notebooks]
 
 
-We demonstrate how to use the data analysis methods in ```demonstrations```, see the Jupyter notebooks.
+We demonstrate how to use the data analysis methods in ```demonstrations```, see the Jupyter notebooks. They also should 
+take at most about a minute to run.
 
+### Double quantum dot detection
+
+In stage 1, the algorithm needs to make a decision on whether a double quantum dot was found.
+We demonstrate how to use our model to make that decision in the notebook ```Double quantum dot classifier.ipynb```.
+
+### Recentering
+
+In stage 3, the first step is to center the bias triangles, i.e., finding their extent so that
+downstream stages can accurately take mesurements. This is demonstrated in ```Recentering.ipynb```.
+
+
+### Wide shot PSB detection
+
+The algorithm needs to make a decision based on measurements with multiple pairs of bias triangles. 
+The method based on autocorrelation and neural networks is demonstrated in ```Wide shot PSB detection.ipynb```.
+
+### High res PSB detection 
+
+After the initial detection of PSB, the algorithm further retakes higher resolution measurements and
+re-classifies the bias triangles based on the higher res images and a computer vision routine. This is demonstrated in
+```High res PSB detection.ipynb```.
+
+### Danon gap check
+
+As a final check for PSB, use a classifier that looks for the Danon gap. This is demonstrated in 
+```Danon gap check.ipynb```.
+
+### Entropy score
+
+In stage 4, the algorithm uses a score based on the entropy of data to find the correct parameters to coherently drive a qubit. 
+This score is demonstrated in ```Entropy score.ipynb```.
+
+### Rabi chevron analysis
+
+The Rabi chevron measurements are analysed to find the mid-point of the chevrons, which is needed
+to drive a qubit coherently on resonance. The method is demonstrated in ```Rabi chevron analysis.ipynb```.
+
+
+### Framework
 
 For a simple demonstration of how the 
 framework can be used, see ```pipelines/simple_dummy_pipeline.py```. It needs to be executed from within 
@@ -90,10 +127,11 @@ name of a dummy experiment. If successfully executed, there will be a markdown f
 Execution should only take a few seconds.
 
 # Code used for full tuning
-[todo: instructions for use]
-[more details on how to run the software]
 
 
 The full pipeline can be executed by running 'pipelines/from_scratch_to_rabi.py'.
-
+You will need access to a double quantum dot device that can host a qubit and is measured
+via transport measurements. The code likely needs adjustments to work with your setup. Specifically, you need to 
+connect to your control electronics. This is handled in ```experiment_control/init_basel.py```.
+Please get in touch with the authors to discuss details.
 
