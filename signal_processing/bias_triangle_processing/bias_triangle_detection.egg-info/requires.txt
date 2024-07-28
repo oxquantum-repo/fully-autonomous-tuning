@@ -1,6 +1,5 @@
 numpy~=1.23.3
 matplotlib~=3.5.2
-opencv-python-headless~=4.7
 scikit-image~=0.19.2
 scipy~=1.9.3
 jupytext~=1.14.6
@@ -12,6 +11,6 @@ mlflow~=2.4.1
 mindfoundry_optaas_client~=1.4.1
 gpytorch~=1.11
 pytest~=7.4.0
-qcodes
+qcodes~=0.38.1
 mpl_image_labeller~=1.1.2
 fastai~=2.7.12

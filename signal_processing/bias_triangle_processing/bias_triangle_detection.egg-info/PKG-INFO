@@ -15,7 +15,6 @@ Requires-Python: <3.12,>=3.7
 Description-Content-Type: text/markdown
 Requires-Dist: numpy~=1.23.3
 Requires-Dist: matplotlib~=3.5.2
-Requires-Dist: opencv-python-headless~=4.7
 Requires-Dist: scikit-image~=0.19.2
 Requires-Dist: scipy~=1.9.3
 Requires-Dist: jupytext~=1.14.6
@@ -27,7 +26,7 @@ Requires-Dist: mlflow~=2.4.1
 Requires-Dist: mindfoundry_optaas_client~=1.4.1
 Requires-Dist: gpytorch~=1.11
 Requires-Dist: pytest~=7.4.0
-Requires-Dist: qcodes
+Requires-Dist: qcodes~=0.38.1
 Requires-Dist: mpl_image_labeller~=1.1.2
 Requires-Dist: fastai~=2.7.12
 

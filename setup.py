@@ -19,10 +19,10 @@ setup(
     install_requires=[
         'numpy',
         'matplotlib',
-        'opencv-python',
+        # 'opencv-python',
         'scikit-image',
         'scipy',
-        'qcodes',
+        'qcodes==0.38.1',
         'jupyterlab',
         'jupyter',
         'toml',
