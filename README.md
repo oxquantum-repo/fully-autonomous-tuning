@@ -32,6 +32,8 @@ see: [this help article](https://learn.microsoft.com/en-us/windows/win32/fileio/
 
 If you use any of the routines that include a call to the MindFoundry server for optimisation, you need to obtain a key from them. Please get in touch with autoqt@mindfoundry.ai .
 
+Note that the key is not necessary for the demos and to generally understand the code.
+
 
 
 # Installation
