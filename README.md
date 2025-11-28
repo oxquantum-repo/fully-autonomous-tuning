@@ -15,7 +15,7 @@ We tested this on a MacBook Air M2 with macOS Sonoma 14.5.
 
 ## Data
 
-Please download data from [here](https://drive.google.com/drive/folders/1_81KzZ8lP8I3Z0P9k4NsKs4xBhn9KErA?usp=share_link).
+Please download data from [Zenodo (DOI 10.5281/zenodo.17745219)](https://doi.org/10.5281/zenodo.17745219).
 The data contains the trained models and data from the experiments to recreate the plots from the paper.
 Place the data in the folder ```data``` so that the demo modules can access it.
 
